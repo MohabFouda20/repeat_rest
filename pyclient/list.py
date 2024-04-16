@@ -11,10 +11,16 @@ auth_response = requests.post(auth_endpoint , json= {'username': 'fouda', 'passw
 
 print (auth_response.json())
 
-endpoint = 'http://localhost:8000/api/products/'   # here is the website you want to access
 
-#json 
+if auth_response.status_code == 200 :
+    token = auth_response.json()['token']
+    headers = {
+        'Authorization': f'Token {token}'
+    }
+    endpoint = 'http://localhost:8000/api/products/'   # here is the website you want to access
+
+    #json 
 
 
-get_response = requests.get(endpoint ) # get the response in form of html
-print (get_response.json())
+    get_response = requests.get(endpoint , headers= headers ) # get the response in form of html
+    print (get_response.json())
