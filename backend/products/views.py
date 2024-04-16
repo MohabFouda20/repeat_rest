@@ -1,6 +1,7 @@
 from . models import Product
-from rest_framework import generics ,mixins , permissions
+from rest_framework import generics ,mixins , permissions , authentication
 from .serializers import productSerializer
+from .permissions import IsStaffEditorPermission
 
 
 #for the function based views
@@ -53,7 +54,11 @@ product_Mixin_View = productMixinView.as_view() # this is a class based view
 class productListCreateApiView(generics.ListCreateAPIView):
     queryset  = Product.objects.all()
     serializer_class = productSerializer
-    permission_classes =[permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+        ]
+    permission_classes =[IsStaffEditorPermission]
     def preform_create(self , serializer):
         print (serializer.validated_data)
         serializer.save()
@@ -68,8 +73,10 @@ ProductListCreateView = productListCreateApiView.as_view()
 
 
 class productDetailAPIView(generics.RetrieveAPIView):
+    
     queryset = Product.objects.all()
     serializer_class = productSerializer
+    
     
     
 ProductDetail_view = productDetailAPIView.as_view() # this is a class based view 
@@ -92,6 +99,7 @@ ProductUpdateView = productUpdateAPIView.as_view() # this is a class based view
 class productDeleteAPIView(generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = productSerializer
+    
     def preformDelete(self , instance):
         super().preformDelete(instance)
     
