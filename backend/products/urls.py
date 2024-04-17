@@ -18,10 +18,10 @@ urlpatterns = [
     #generic based view
     
     
-    path('',views.ProductListCreateView),
-    path('<int:pk>/',views.ProductDetail_view),
-    path('<int:pk>/update',views.ProductUpdateView),
-    path('<int:pk>/delete',views.ProductDeleteView),
+    path('',views.ProductListCreateView , name = 'product_list'),
+    path('<int:pk>/',views.ProductDetail_view , name = 'product_detail'),
+    path('<int:pk>/update',views.ProductUpdateView , name='product_edit'),
+    path('<int:pk>/delete',views.ProductDeleteView , name = 'product_delete'),
     
     
  #---------------------------------------------------------------------------------------------------------------------------------
