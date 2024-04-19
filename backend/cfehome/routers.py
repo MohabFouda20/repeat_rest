@@ -6,4 +6,4 @@ router = DefaultRouter()
 router.register('products-111', ProductViewSet , basename= 'products')
 
 # print(router.urls)
-urlpatterns = router.urls   # This is a list of urls that we can include in our urls.py file
+urlpatterns = [router.urls ]  # This is a list of urls that we can include in our urls.py file validators

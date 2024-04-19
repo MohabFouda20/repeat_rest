@@ -2,9 +2,12 @@ from rest_framework import serializers
 from rest_framework.reverse import reverse
 from .models import Product
 from . import validators
+from api.serializers import UserPublicSerializer
 
 
 class productSerializer(serializers.ModelSerializer):
+    user = UserPublicSerializer(read_only = True)
+    # my_user_data = serializers.SerializerMethodField(read_only = True)
     edit_url = serializers.SerializerMethodField(read_only = True)
     url = serializers.HyperlinkedIdentityField(view_name = 'product_detail' , lookup_field = 'pk')
     title =serializers.CharField(validators = [validators.validate_title , validators.unique_title_for_all_user])
@@ -14,16 +17,22 @@ class productSerializer(serializers.ModelSerializer):
         fields = [
             'url',  
             'edit_url',
+            'user',
             'id',
             'title',
             'content', 
             'price',
-            'sale_price'
+            'sale_price',
+            # 'my_user_data', 
             ]
         
         
         
-        
+    # def get_my_user_data(self , obj):
+    #     return {"username": obj.user}
+    
+    
+    
     #can use a external function to validate the title    
     
     # def validate_title(self, value):
