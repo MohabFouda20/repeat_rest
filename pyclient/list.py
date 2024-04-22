@@ -24,3 +24,5 @@ if auth_response.status_code == 200 :
 
     get_response = requests.get(endpoint , headers= headers ) # get the response in form of html
     print (get_response.json())
+
+
