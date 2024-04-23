@@ -113,3 +113,11 @@ function ValidToken (){
     fetch(endpoint, option)
     .then (response => response.json())
 }
+
+
+
+const searchClient  = algoliasearch('5OAOJ86K8M', '2c0ab6b4badbc8b665e18d3dc5699d31')
+const search  =instantsearch({
+    indexName:'demo_ecommerce',
+    searchClient,
+    });
